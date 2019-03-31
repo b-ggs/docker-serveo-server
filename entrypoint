@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ "$DOMAIN" = "" ]; then
+  echo "Env var DOMAIN is not set!"
+  exit 1
+fi
+
+if [ "$1" = "docker-start" ]; then
+  shift
+
+  ssh-keygen -t rsa -f /tmp/id_rsa -N "" -q
+
+  exec serveo -private_key_path /tmp/id_rsa -disable_telemetry -port $PORT -domain $DOMAIN
+fi
+
+exec "$@"
