@@ -10,6 +10,7 @@ fi
 if [ "$1" = "docker-start" ]; then
   shift
 
+  rm -f /tmp/id_rsa
   ssh-keygen -t rsa -f /tmp/id_rsa -N "" -q
 
   exec serveo -private_key_path /tmp/id_rsa -disable_telemetry -port $PORT -domain $DOMAIN
